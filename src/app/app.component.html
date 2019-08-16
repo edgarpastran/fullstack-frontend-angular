@@ -1,0 +1,51 @@
+<div class="container">
+    <mat-toolbar color="primary" class="toolbar">
+        <button mat-icon-button (click)="sidenav.toggle()">
+            <mat-icon *ngIf="!sidenav.opened">menu</mat-icon>
+            <mat-icon *ngIf="sidenav.opened">close</mat-icon>
+        </button>
+        <h1 class="app-name">EdPas</h1>
+        <span class="spacer"></span>
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item routerLink="/profile">
+                <mat-icon>account_box</mat-icon>
+                <span>Profile</span>
+            </button>
+            <button mat-menu-item (click)="sidenav.opened = false">
+                <mat-icon>exit_to_app</mat-icon>
+                <span>Sign out</span>
+            </button>
+        </mat-menu>
+    </mat-toolbar>
+
+    <mat-sidenav-container class="sidenav-container">
+        <mat-sidenav #sidenav>
+            <img src="assets/EdPas.png" width="128" class="app-logo">
+            <button mat-menu-item (click)="sidenav.toggle()" routerLink="/search" class="cursor-pointer">
+                <mat-icon>search</mat-icon>
+                <span>Search</span>
+            </button>
+            <mat-divider></mat-divider>
+            <button mat-menu-item (click)="sidenav.toggle()" routerLink="/person" class="cursor-pointer">
+                <mat-icon>face</mat-icon>
+                <span>Persons</span>
+            </button>
+            <mat-divider></mat-divider>
+            <button mat-menu-item (click)="sidenav.toggle()" routerLink="/product" class="cursor-pointer">
+                <mat-icon>bookmarks</mat-icon>
+                <span>Products</span>
+            </button>
+            <mat-divider></mat-divider>
+            <button mat-menu-item (click)="sidenav.toggle()" routerLink="/report" class="cursor-pointer">
+                <mat-icon>assessment</mat-icon>
+                <span>Reports</span>
+            </button>
+        </mat-sidenav>
+        <mat-sidenav-content>
+            <router-outlet></router-outlet>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div>

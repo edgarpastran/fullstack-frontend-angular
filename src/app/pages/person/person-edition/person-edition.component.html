@@ -1,0 +1,37 @@
+<form class="container" [formGroup]="form" (ngSubmit)="process()" #frmPerson="ngForm">
+
+    <div [hidden]="true">
+        <mat-form-field>
+            <input matInput placeholder="ID" required formControlName="idPerson">
+        </mat-form-field>
+    </div>
+    
+    <mat-form-field>
+        <input matInput placeholder="First Name" required formControlName="firstName">
+    </mat-form-field>
+    
+    <mat-form-field>
+        <input matInput placeholder="Last Name" required formControlName="lastName">
+    </mat-form-field>
+    
+    <mat-form-field>
+        <input matInput placeholder="Driver License" required formControlName="driverLicense" max="8" maxlength="8" type="number">
+    </mat-form-field>
+    
+    <mat-form-field>
+        <input matInput placeholder="Telephone" required formControlName="telephone" max="10" maxlength="10" type="number">
+    </mat-form-field>
+    
+    <mat-form-field>
+        <input matInput placeholder="Email" required formControlName="email">
+    </mat-form-field>
+    
+    <button mat-raised-button color="primary" type="submit" [disabled]="frmPerson.invalid">
+        <mat-icon>done</mat-icon>
+        <span>OK</span>
+    </button>
+    <button mat-raised-button color="warn" routerLink='/person' type="button">
+        <mat-icon>close</mat-icon>
+        <span>Cancel</span>
+    </button>
+</form>
