@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { PersonEditionComponent } from './pages/person/person-edition/person-edition.component';
 import { ProductComponent } from './pages/product/product.component';
 import { ProductDialogComponent } from './pages/product/product-dialog/product-dialog.component';
+import { PurchaseComponent } from './pages/purchase/purchase.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ProductDialogComponent } from './pages/product/product-dialog/product-d
     PersonComponent,
     PersonEditionComponent,
     ProductComponent,
-    ProductDialogComponent
+    ProductDialogComponent,
+    PurchaseComponent
   ],
   entryComponents: [
     ProductDialogComponent

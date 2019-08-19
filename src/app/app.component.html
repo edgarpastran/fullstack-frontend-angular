@@ -39,6 +39,11 @@
                 <span>Products</span>
             </button>
             <mat-divider></mat-divider>
+            <button mat-menu-item (click)="sidenav.toggle()" routerLink="/purchase" class="cursor-pointer">
+                <mat-icon>shopping_basket</mat-icon>
+                <span>Purchase</span>
+            </button>
+            <mat-divider></mat-divider>
             <button mat-menu-item (click)="sidenav.toggle()" routerLink="/report" class="cursor-pointer">
                 <mat-icon>assessment</mat-icon>
                 <span>Reports</span>

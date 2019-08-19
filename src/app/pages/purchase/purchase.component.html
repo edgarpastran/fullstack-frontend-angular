@@ -1,0 +1,92 @@
+<form [formGroup]="form" (ngSubmit)="process()" #frmPurchase="ngForm">    
+
+    <mat-toolbar>
+        <span>Purchase</span>
+        <span class="spacer"></span>
+        <!-- Button Save -->    
+        <button mat-fab color="primary" class="btn-toolbar" type="submit" [disabled]="processStatus()">
+            <mat-icon>done</mat-icon>
+        </button>
+    </mat-toolbar>
+
+    <div class="container">
+        <mat-form-field>
+            <input type="text" placeholder="Person" matInput [matAutocomplete]="autoPerson" [formControl]="myControlPerson" formControlName="person">
+            <mat-autocomplete #autoPerson="matAutocomplete" [displayWith]="displayPerson">
+              <mat-option *ngFor="let per of filteredPersons | async" [value]="per">
+                {{per.driverLicense}} - {{per.firstName}} {{per.lastName}}
+              </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput [matDatepicker]="picker" placeholder="Date" [max]="maximumDate" formControlName="date">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>                
+        </mat-form-field>
+
+        <mat-form-field>
+            <input type="text" placeholder="Product" matInput [matAutocomplete]="autoProduct" [formControl]="myControlProduct" formControlName="product">
+            <mat-autocomplete #autoProduct="matAutocomplete" [displayWith]="displayProduct">
+              <mat-option *ngFor="let pro of filteredProducts | async" [value]="pro">
+                {{pro.name}} ({{pro.brand}})
+              </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="Quantity" [(ngModel)]="quantity" formControlName="quantity" max="3" maxlength="3" type="number">
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" class="mb-20" type="button" (click)="addPurchaseDetail()" [disabled]="!addPurchaseDetailStatus()">
+            <mat-icon>playlist_add</mat-icon>
+            Add Detail
+        </button>
+
+        <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+            <!-- Product Name Column -->
+            <ng-container matColumnDef="productName">
+                <mat-header-cell *matHeaderCellDef> Product Name </mat-header-cell>
+                <mat-cell *matCellDef="let detail; let i = index;"> {{i+1}}. {{detail.product.name}} ({{detail.product.brand}})</mat-cell>
+                <mat-footer-cell *matFooterCellDef> Total </mat-footer-cell>
+            </ng-container>
+            
+            <!-- Quantity Column -->
+            <ng-container matColumnDef="quantity">
+                <mat-header-cell *matHeaderCellDef> Quantity </mat-header-cell>
+                <mat-cell *matCellDef="let detail"> {{detail.quantity}} </mat-cell>
+                <mat-footer-cell *matFooterCellDef> {{getTotalItems()}} </mat-footer-cell>
+            </ng-container>
+            
+            <!-- Price Column -->
+            <ng-container matColumnDef="price">
+                <mat-header-cell *matHeaderCellDef> Price </mat-header-cell>
+                <mat-cell *matCellDef="let detail"> {{detail.product.price | currency}} </mat-cell>
+                <mat-footer-cell *matFooterCellDef> </mat-footer-cell>
+            </ng-container>
+
+            <!-- Subtotal Column -->
+            <ng-container matColumnDef="subtotal">
+                <mat-header-cell *matHeaderCellDef> Subtotal </mat-header-cell>
+                <mat-cell *matCellDef="let detail"> {{detail.product.price * detail.quantity | currency}} </mat-cell>
+                <mat-footer-cell *matFooterCellDef> {{getTotalAmount() | currency}} </mat-footer-cell>
+            </ng-container>
+
+            <!-- Actions Column -->
+            <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef> Delete </mat-header-cell>
+                <mat-cell *matCellDef="let detail; let i = index;">
+                    <button mat-mini-fab color="warn" (click)="removePurchaseDetail(i);">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </mat-cell>
+                <mat-footer-cell *matFooterCellDef> </mat-footer-cell>
+            </ng-container>
+            
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            <mat-footer-row *matFooterRowDef="displayedColumns"></mat-footer-row>
+        </mat-table>
+    </div>
+
+</form>

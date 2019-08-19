@@ -7,10 +7,15 @@
     width: 100%;
 }
 
+.spacer {
+    flex: 1 1 auto;
+}
+
 .btn-toolbar {
     float: right; 
     margin-right: 20px;
 }
-.spacer {
-    flex: 1 1 auto;
+
+.mb-20 {
+    margin-bottom: 20px;
 }

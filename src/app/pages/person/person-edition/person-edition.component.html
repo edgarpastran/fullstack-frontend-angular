@@ -1,5 +1,18 @@
 <form class="container" [formGroup]="form" (ngSubmit)="process()" #frmPerson="ngForm">
 
+    <mat-toolbar>
+        <span>Persons</span>
+        <span class="spacer"></span>        
+        <!-- Button Cancel -->
+        <button mat-fab color="warn" class="btn-toolbar" routerLink='/person' type="button">
+            <mat-icon>close</mat-icon>
+        </button>        
+        <!-- Button OK -->
+        <button mat-fab color="primary" class="btn-toolbar" type="submit" [disabled]="frmPerson.invalid">
+            <mat-icon>done</mat-icon>
+        </button>
+    </mat-toolbar>
+
     <div [hidden]="true">
         <mat-form-field>
             <input matInput placeholder="ID" required formControlName="idPerson">
@@ -24,14 +37,5 @@
     
     <mat-form-field>
         <input matInput placeholder="Email" required formControlName="email">
-    </mat-form-field>
-    
-    <button mat-raised-button color="primary" type="submit" [disabled]="frmPerson.invalid">
-        <mat-icon>done</mat-icon>
-        <span>OK</span>
-    </button>
-    <button mat-raised-button color="warn" routerLink='/person' type="button">
-        <mat-icon>close</mat-icon>
-        <span>Cancel</span>
-    </button>
+    </mat-form-field>        
 </form>

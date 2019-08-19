@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {MatTableModule, MatButtonModule, MatSortModule, MatPaginatorModule, MatIconModule, MatFormFieldModule, MatInputModule, MatCardModule, MatSnackBarModule, MatSidenavModule, MatMenuModule, MatDividerModule, MatToolbarModule, MatDialogModule} from '@angular/material';
+import {MatTableModule, MatButtonModule, MatSortModule, MatPaginatorModule, MatIconModule, MatFormFieldModule, MatInputModule, MatCardModule, MatSnackBarModule, MatSidenavModule, MatMenuModule, MatDividerModule, MatToolbarModule, MatDialogModule, MatAutocompleteModule, MatDatepickerModule, MatNativeDateModule, MAT_DATE_LOCALE, MatExpansionModule} from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 
 
@@ -22,7 +22,11 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatMenuModule,
     MatDividerModule,
     MatToolbarModule,
-    MatDialogModule
+    MatDialogModule,
+    MatAutocompleteModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatExpansionModule
   ],
   exports: [
     MatTableModule,
@@ -39,7 +43,15 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatMenuModule,
     MatDividerModule,
     MatToolbarModule,
-    MatDialogModule
+    MatDialogModule,
+    MatAutocompleteModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatExpansionModule
+  ],
+  providers: [
+    {provide: MAT_DATE_LOCALE, useValue: 'en-US'}
+    //{provide: MAT_DATE_LOCALE, useValue: 'es-ES'}
   ]
 })
 export class MaterialModule { }
