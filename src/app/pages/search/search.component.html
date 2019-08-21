@@ -42,7 +42,7 @@
     <th mat-header-cell *matHeaderCellDef mat-sort-header> Amount </th>
     <td mat-cell *matCellDef="let purchase"> {{purchase.amount | currency}} 
       <button mat-icon-button class="btn-toolbar">
-        <mat-icon>{{purchase == expandedElement?'expand_more':'expand_less'}}</mat-icon>
+        <mat-icon>{{purchase == expandedElement?'expand_less':'expand_more'}}</mat-icon>
       </button>
     </td>
   </ng-container>
