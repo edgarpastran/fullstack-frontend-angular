@@ -5,6 +5,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort, MatPaginator, MatSnackBar } from '@angular/material';
 import { messages } from 'src/environments/environment';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-person',
@@ -31,9 +32,15 @@ export class PersonComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
     });
 
-    this.personService.messageChange.subscribe(data => {
+    this.personService.messageInfoChange.subscribe(data => {
       this.snackBar.open(data, messages.INFO_TITLE, {
         duration: 2000
+      });
+    });
+
+    this.personService.messageErrorChange.subscribe(data => {
+      this.snackBar.open(data, messages.ERROR_TITLE, {
+        duration: 5000
       });
     });
     
@@ -49,11 +56,14 @@ export class PersonComponent implements OnInit {
   }
 
   delete(id: number) {
-    this.personService.delete(id).subscribe(() => {
-      this.personService.list().subscribe(data => {
-        this.personService.dataChange.next(data);
-        this.personService.messageChange.next(messages.DATA_DELETED);
-      });
+    this.personService.delete(id).pipe(switchMap(() => {
+      return this.personService.list();
+    })).subscribe(data => {
+      this.personService.dataChange.next(data);
+      this.personService.messageInfoChange.next(messages.DATA_DELETED);
+    }, 
+    error => {      
+      this.personService.messageErrorChange.next(error.error.message);        
     });
   }
 }

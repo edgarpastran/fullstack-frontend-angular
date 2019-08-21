@@ -4,6 +4,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { ActivatedRoute, Params, RouterModule, Router } from '@angular/router';
 import { Person } from 'src/app/_model/person';
 import { messages } from 'src/environments/environment';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-person-edition',
@@ -63,19 +64,25 @@ export class PersonEditionComponent implements OnInit {
     person.email = this.form.value['email'];
     
     if (this.currentId != null) {
-      this.personService.update(person).subscribe(() => {
-        this.personService.list().subscribe(data => {
-          this.personService.dataChange.next(data);
-          this.personService.messageChange.next(messages.DATA_UPDATED);
-        });
+      this.personService.update(person).pipe(switchMap(() => {
+        return this.personService.list();
+      })).subscribe(data => {
+        this.personService.dataChange.next(data);
+        this.personService.messageInfoChange.next(messages.DATA_UPDATED);
+      }, 
+      error => {        
+        this.personService.messageErrorChange.next(error.error.message+' - '+error.error.details);
       });
     }
     else {
-      this.personService.register(person).subscribe(() => {
-        this.personService.list().subscribe(data => {
-          this.personService.dataChange.next(data);
-          this.personService.messageChange.next(messages.DATA_REGISTERED);
-        });
+      this.personService.register(person).pipe(switchMap(() => {
+        return this.personService.list();
+      })).subscribe(data => {
+        this.personService.dataChange.next(data);
+        this.personService.messageInfoChange.next(messages.DATA_REGISTERED);
+      }, 
+      error => {
+        this.personService.messageErrorChange.next(error.error.message+' - '+error.error.details);
       });
     }
 

@@ -46,7 +46,7 @@
         <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
             <!-- Product Name Column -->
             <ng-container matColumnDef="productName">
-                <mat-header-cell *matHeaderCellDef> Product Name </mat-header-cell>
+                <mat-header-cell *matHeaderCellDef> #. Product Name </mat-header-cell>
                 <mat-cell *matCellDef="let detail; let i = index;"> {{i+1}}. {{detail.product.name}} ({{detail.product.brand}})</mat-cell>
                 <mat-footer-cell *matFooterCellDef> Total </mat-footer-cell>
             </ng-container>

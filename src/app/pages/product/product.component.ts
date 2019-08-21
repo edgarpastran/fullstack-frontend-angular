@@ -32,9 +32,15 @@ export class ProductComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
     });
 
-    this.productService.messageChange.subscribe(data => {
+    this.productService.messageInfoChange.subscribe(data => {
       this.snackBar.open(data, messages.INFO_TITLE, {
         duration: 2000
+      });
+    });
+
+    this.productService.messageErrorChange.subscribe(data => {
+      this.snackBar.open(data, messages.ERROR_TITLE, {
+        duration: 5000
       });
     });
 
@@ -62,7 +68,10 @@ export class ProductComponent implements OnInit {
       return this.productService.list();
     })).subscribe(data => {
       this.productService.dataChange.next(data);
-      this.productService.messageChange.next(messages.DATA_DELETED);
+      this.productService.messageInfoChange.next(messages.DATA_DELETED);
+    }, 
+    error => {
+      this.productService.messageErrorChange.next(error.error.message);        
     });
   }
 }

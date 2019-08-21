@@ -9,6 +9,7 @@ export const environment = {
 
 export const messages = {
   INFO_TITLE: 'INFORMATION',
+  ERROR_TITLE: 'ERROR',
   DATA_REGISTERED: 'DATA REGISTERED',
   DATA_UPDATED: 'DATA UPDATED',
   DATA_DELETED: 'DATA DELETED',

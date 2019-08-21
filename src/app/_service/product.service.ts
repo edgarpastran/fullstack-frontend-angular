@@ -10,7 +10,8 @@ import { Subject } from 'rxjs';
 export class ProductService {
 
   dataChange = new Subject<Product[]>();
-  messageChange = new Subject<string>();
+  messageInfoChange = new Subject<string>();
+  messageErrorChange = new Subject<string>();
   url: string = `${environment.HOST}/products`; 
 
   constructor(private http: HttpClient) { }

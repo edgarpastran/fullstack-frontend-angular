@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Person } from '../_model/person';
 import { environment } from 'src/environments/environment';
 import { Subject } from 'rxjs';
@@ -11,7 +11,8 @@ import { Subject } from 'rxjs';
 export class PersonService {
 
   dataChange = new Subject<Person[]>();
-  messageChange = new Subject<string>();
+  messageInfoChange = new Subject<string>();
+  messageErrorChange = new Subject<string>();
   url: string = `${environment.HOST}/persons`; 
 
   constructor(private http: HttpClient) { }

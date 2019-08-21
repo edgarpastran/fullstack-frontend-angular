@@ -38,7 +38,10 @@ export class ProductDialogComponent implements OnInit {
         return this.productService.list();
       })).subscribe(data => {
         this.productService.dataChange.next(data);
-        this.productService.messageChange.next(messages.DATA_UPDATED);
+        this.productService.messageInfoChange.next(messages.DATA_UPDATED);
+      }, 
+      error => {
+        this.productService.messageErrorChange.next(error.error.message+' - '+error.error.details);
       });
     } 
     else {
@@ -46,7 +49,10 @@ export class ProductDialogComponent implements OnInit {
         return this.productService.list();
       })).subscribe(data => {
         this.productService.dataChange.next(data);
-        this.productService.messageChange.next(messages.DATA_REGISTERED);
+        this.productService.messageInfoChange.next(messages.DATA_REGISTERED);
+      }, 
+      error => {
+        this.productService.messageErrorChange.next(error.error.message+' - '+error.error.details);        
       });
     }
     this.dialogRef.close();

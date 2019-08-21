@@ -1,3 +1,4 @@
+import { SearchComponent } from './pages/search/search.component';
 import { PurchaseComponent } from './pages/purchase/purchase.component';
 import { ProductComponent } from './pages/product/product.component';
 import { PersonEditionComponent } from './pages/person/person-edition/person-edition.component';
@@ -14,7 +15,8 @@ const routes: Routes = [
     ]
   },
   {path: 'product', component: ProductComponent},
-  {path: 'purchase', component: PurchaseComponent}
+  {path: 'purchase', component: PurchaseComponent},
+  {path: 'search', component: SearchComponent}
 ];
 
 @NgModule({

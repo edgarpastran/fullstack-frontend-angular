@@ -16,23 +16,23 @@
     </div>
 
     <!-- Table -->
-    <mat-table [dataSource]="dataSource" MatSort>
+    <mat-table [dataSource]="dataSource" matSort>
 
         <!-- ID Product Column -->
         <ng-container matColumnDef="idProduct">
-            <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
             <mat-cell *matCellDef="let product"> {{product.idProduct}} </mat-cell>
         </ng-container>
 
         <!-- Name Column -->
         <ng-container matColumnDef="name">
-            <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
             <mat-cell *matCellDef="let product"> {{product.name}} </mat-cell>
         </ng-container>
 
         <!-- Brand Column -->
         <ng-container matColumnDef="brand">
-            <mat-header-cell *matHeaderCellDef> Brand </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Brand </mat-header-cell>
             <mat-cell *matCellDef="let product"> {{product.brand}} </mat-cell>
         </ng-container>
 

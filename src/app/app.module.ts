@@ -12,6 +12,7 @@ import { PersonEditionComponent } from './pages/person/person-edition/person-edi
 import { ProductComponent } from './pages/product/product.component';
 import { ProductDialogComponent } from './pages/product/product-dialog/product-dialog.component';
 import { PurchaseComponent } from './pages/purchase/purchase.component';
+import { SearchComponent } from './pages/search/search.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { PurchaseComponent } from './pages/purchase/purchase.component';
     PersonEditionComponent,
     ProductComponent,
     ProductDialogComponent,
-    PurchaseComponent
+    PurchaseComponent,
+    SearchComponent
   ],
   entryComponents: [
     ProductDialogComponent
