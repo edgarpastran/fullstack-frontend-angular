@@ -13,6 +13,8 @@ import { ProductComponent } from './pages/product/product.component';
 import { ProductDialogComponent } from './pages/product/product-dialog/product-dialog.component';
 import { PurchaseComponent } from './pages/purchase/purchase.component';
 import { SearchComponent } from './pages/search/search.component';
+import { ReportsComponent } from './pages/reports/reports.component';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,8 @@ import { SearchComponent } from './pages/search/search.component';
     ProductComponent,
     ProductDialogComponent,
     PurchaseComponent,
-    SearchComponent
+    SearchComponent,
+    ReportsComponent
   ],
   entryComponents: [
     ProductDialogComponent
@@ -34,7 +37,8 @@ import { SearchComponent } from './pages/search/search.component';
     HttpClientModule,
     MaterialModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    PdfViewerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

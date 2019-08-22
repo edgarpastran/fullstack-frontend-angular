@@ -1,0 +1,39 @@
+<mat-toolbar>
+    <span>Reports</span>        
+</mat-toolbar>
+
+<mat-tab-group>
+    <mat-tab>
+        <ng-template mat-tab-label>
+            <mat-icon class="tab-icon">pie_chart</mat-icon>
+            Charts
+        </ng-template>
+
+        <button mat-button color="primary" (click)="change('line')">Line</button>
+        <button mat-button color="primary" (click)="change('bar')">Bar</button>
+        <button mat-button color="primary" (click)="change('doughnut')">Doughnut</button>
+        <button mat-button color="primary" (click)="change('radar')">Radar</button>
+        <button mat-button color="primary" (click)="change('pie')">Pie</button>
+
+        <div [hidden]="!chart">
+            <canvas id="canvas">{{chart}}</canvas>
+        </div>
+
+    </mat-tab>
+
+    <mat-tab>
+        <ng-template mat-tab-label>
+        <mat-icon class="tab-icon">picture_as_pdf</mat-icon>
+        PDF
+        </ng-template>
+
+        <button mat-button color="primary" (click)="downloadPurchaseSummaryReport()">
+            <mat-icon class="tab-icon">cloud_download</mat-icon>
+            Download PDF
+        </button>
+
+        <pdf-viewer [src]="pdfSrc" [render-text]="true" style="display: block;"></pdf-viewer>
+
+    </mat-tab>
+
+</mat-tab-group>
