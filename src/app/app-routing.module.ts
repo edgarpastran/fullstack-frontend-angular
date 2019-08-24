@@ -1,3 +1,5 @@
+import { GuardService } from './_service/guard.service';
+import { LoginComponent } from './login/login.component';
 import { ReportsComponent } from './pages/reports/reports.component';
 import { SearchComponent } from './pages/search/search.component';
 import { PurchaseComponent } from './pages/purchase/purchase.component';
@@ -6,6 +8,7 @@ import { PersonEditionComponent } from './pages/person/person-edition/person-edi
 import { PersonComponent } from './pages/person/person.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { Not403Component } from './pages/not403/not403.component';
 
 
 const routes: Routes = [
@@ -13,12 +16,16 @@ const routes: Routes = [
     path: 'person', component: PersonComponent, children: [
       {path: 'new', component: PersonEditionComponent},
       {path: 'edition/:id', component: PersonEditionComponent}
-    ]
+    ],
+    canActivate: [GuardService]
   },
-  {path: 'product', component: ProductComponent},
-  {path: 'purchase', component: PurchaseComponent},
-  {path: 'search', component: SearchComponent},
-  {path: 'reports', component: ReportsComponent}
+  {path: 'product', component: ProductComponent, canActivate: [GuardService]},
+  {path: 'purchase', component: PurchaseComponent, canActivate: [GuardService]},
+  {path: 'search', component: SearchComponent, canActivate: [GuardService]},
+  {path: 'reports', component: ReportsComponent, canActivate: [GuardService]},
+  {path: 'login', component: LoginComponent}, 
+  {path: 'not403', component: Not403Component}, 
+  {path: '', redirectTo: 'login', pathMatch: 'full'}
 ];
 
 @NgModule({

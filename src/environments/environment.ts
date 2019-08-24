@@ -4,7 +4,10 @@
 
 export const environment = {
   production: false,
-  HOST: 'http://localhost:8080'  
+  HOST: 'http://localhost:8080',
+  TOKEN_AUTH_USERNAME: 'edpas-backend',
+  TOKEN_AUTH_PASSWORD: 'edpas-backend-codex',
+  TOKEN_NAME: 'access_token'
 };
 
 export const messages = {
@@ -14,7 +17,7 @@ export const messages = {
   DATA_UPDATED: 'DATA UPDATED',
   DATA_DELETED: 'DATA DELETED',
   DATA_REQUIRED: 'YOU MUST ENTER THE REQUIRED DATA'
-}
+};
 
 /*
  * For easier debugging in development mode, you can import the following file

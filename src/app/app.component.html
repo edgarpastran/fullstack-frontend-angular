@@ -1,5 +1,5 @@
 <div class="container">
-    <mat-toolbar color="primary" class="toolbar">
+    <mat-toolbar color="primary" class="toolbar" *ngIf="isLoggedIn()">
         <button mat-icon-button (click)="sidenav.toggle()">
             <mat-icon *ngIf="!sidenav.opened">menu</mat-icon>
             <mat-icon *ngIf="sidenav.opened">close</mat-icon>
@@ -14,7 +14,7 @@
                 <mat-icon>account_box</mat-icon>
                 <span>Profile</span>
             </button>
-            <button mat-menu-item (click)="sidenav.opened = false">
+            <button mat-menu-item (click)="sidenav.opened = false" (click)="logout()">
                 <mat-icon>exit_to_app</mat-icon>
                 <span>Sign out</span>
             </button>
@@ -24,30 +24,13 @@
     <mat-sidenav-container class="sidenav-container">
         <mat-sidenav #sidenav>
             <img src="assets/EPC.png" width="128" class="app-logo">
-            <button mat-menu-item (click)="sidenav.toggle()" routerLink="/search" class="cursor-pointer">
-                <mat-icon>search</mat-icon>
-                <span>Search</span>
-            </button>
-            <mat-divider></mat-divider>
-            <button mat-menu-item (click)="sidenav.toggle()" routerLink="/person" class="cursor-pointer">
-                <mat-icon>face</mat-icon>
-                <span>Persons</span>
-            </button>
-            <mat-divider></mat-divider>
-            <button mat-menu-item (click)="sidenav.toggle()" routerLink="/product" class="cursor-pointer">
-                <mat-icon>bookmarks</mat-icon>
-                <span>Products</span>
-            </button>
-            <mat-divider></mat-divider>
-            <button mat-menu-item (click)="sidenav.toggle()" routerLink="/purchase" class="cursor-pointer">
-                <mat-icon>shopping_basket</mat-icon>
-                <span>Purchase</span>
-            </button>
-            <mat-divider></mat-divider>
-            <button mat-menu-item (click)="sidenav.toggle()" routerLink="/reports" class="cursor-pointer">
-                <mat-icon>assessment</mat-icon>
-                <span>Reports</span>
-            </button>
+            <div *ngFor="let menu of menus">
+                <button mat-menu-item (click)="sidenav.toggle()" routerLink="{{menu.url}}" class="cursor-pointer">
+                    <mat-icon>{{menu.icon}}</mat-icon>
+                    <span>{{menu.name}}</span>
+                </button>
+                <mat-divider></mat-divider>
+            </div>
         </mat-sidenav>
         <mat-sidenav-content>
             <router-outlet></router-outlet>

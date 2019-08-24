@@ -21,6 +21,10 @@ export class PersonService {
     return this.http.get<Person[]>(this.url);
   }
 
+  listPageable(page: number, size: number)  {
+    return this.http.get<any>(`${this.url}/pageable?page=${page}&size=${size}`);
+  }
+
   find(id: number) {
     return this.http.get<Person>(`${this.url}/${id}`);
   }

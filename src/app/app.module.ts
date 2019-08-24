@@ -15,6 +15,15 @@ import { PurchaseComponent } from './pages/purchase/purchase.component';
 import { SearchComponent } from './pages/search/search.component';
 import { ReportsComponent } from './pages/reports/reports.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { LoginComponent } from './login/login.component';
+import { JwtModule } from '@auth0/angular-jwt';
+import { environment } from 'src/environments/environment';
+import { Not403Component } from './pages/not403/not403.component';
+
+export function tokenGetter() {
+  let token = sessionStorage.getItem(environment.TOKEN_NAME);
+  return token != null ? token : '';
+}
 
 @NgModule({
   declarations: [
@@ -25,7 +34,9 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
     ProductDialogComponent,
     PurchaseComponent,
     SearchComponent,
-    ReportsComponent
+    ReportsComponent,
+    LoginComponent,
+    Not403Component
   ],
   entryComponents: [
     ProductDialogComponent
@@ -38,7 +49,14 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    PdfViewerModule
+    PdfViewerModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        whitelistedDomains: ['localhost:8080'],
+        blacklistedRoutes: ['http://localhost:8080/login/sendEmail']
+      }
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

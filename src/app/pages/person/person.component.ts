@@ -19,6 +19,8 @@ export class PersonComponent implements OnInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
+  recordsCounter: number;
+
   constructor(
     private personService: PersonService, 
     private snackBar: MatSnackBar,
@@ -44,8 +46,17 @@ export class PersonComponent implements OnInit {
       });
     });
     
+    /*
     this.personService.list().subscribe(data => {
       this.dataSource = new MatTableDataSource(data);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+    });
+    */
+   
+    this.personService.listPageable(0, 5).subscribe(data => {
+      this.recordsCounter = data.totalElements;
+      this.dataSource = new MatTableDataSource(data.content);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     });
@@ -64,6 +75,14 @@ export class PersonComponent implements OnInit {
     }, 
     error => {      
       this.personService.messageErrorChange.next(error.error.message);        
+    });
+  }
+
+  showMore(e: any) {
+    this.personService.listPageable(e.pageIndex, e.pageSize).subscribe(data => {
+      this.recordsCounter = data.totalElements;
+      this.dataSource = new MatTableDataSource(data.content);
+      this.dataSource.sort = this.sort;
     });
   }
 }

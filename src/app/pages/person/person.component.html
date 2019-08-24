@@ -56,6 +56,6 @@
         </mat-table>
 
         <!-- Paginator -->
-        <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+        <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]" [length]="recordsCounter" (page)="showMore($event)"></mat-paginator>
     </div>    
 </div> 
