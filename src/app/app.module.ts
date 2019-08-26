@@ -19,6 +19,8 @@ import { LoginComponent } from './login/login.component';
 import { JwtModule } from '@auth0/angular-jwt';
 import { environment } from 'src/environments/environment';
 import { Not403Component } from './pages/not403/not403.component';
+import { RecoverComponent } from './login/recover/recover.component';
+import { TokenComponent } from './login/recover/token/token.component';
 
 export function tokenGetter() {
   let token = sessionStorage.getItem(environment.TOKEN_NAME);
@@ -36,7 +38,9 @@ export function tokenGetter() {
     SearchComponent,
     ReportsComponent,
     LoginComponent,
-    Not403Component
+    Not403Component,
+    RecoverComponent,
+    TokenComponent
   ],
   entryComponents: [
     ProductDialogComponent

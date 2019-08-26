@@ -25,6 +25,22 @@ export class LoginService {
     })
   }
 
+  sendEmail(email: string) {
+    return this.http.post<number>(`${environment.HOST}/login/sendEmail`, email, {
+      headers: new HttpHeaders().set('Content-Type', 'text/plain')
+    });
+  }
+
+  checkResetToken(token: string) {
+    return this.http.get<number>(`${environment.HOST}/login/reset/check/${token}`);
+  }
+
+  resetPassword(token: string, password: string) {
+    return this.http.post<number>(`${environment.HOST}/login/reset/${token}`, password, {
+      headers: new HttpHeaders().set('Content-Type', 'text/plain')
+    });
+  }
+
   logout() {
     let token = sessionStorage.getItem(environment.TOKEN_NAME);
     this.http.get(`${environment.HOST}/tokens/revoke/${token}`).subscribe(() => {
@@ -37,4 +53,5 @@ export class LoginService {
     let token = sessionStorage.getItem(environment.TOKEN_NAME);
     return token != null;
   }
+  
 }

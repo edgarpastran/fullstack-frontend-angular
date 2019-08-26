@@ -1,0 +1,24 @@
+<mat-toolbar *ngIf="!tokenValid">
+    The request is not valid or it has expired :(
+</mat-toolbar>
+  
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()" *ngIf="tokenValid">
+    <div class="container">
+        <mat-form-field>
+            <input matInput type="password" name="password" placeholder="New password" formControlName="password"
+                [formGroup]="form" required>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput type="password" placeholder="Repeat new password" formControlName="confirmPassword"
+                [formGroup]="form" required>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Change Password</button>
+        <button mat-raised-button color="primary" type="button" routerLink="/login" *ngIf="result === 1">Go to Login</button>
+        <mat-toolbar *ngIf="form.controls.confirmPassword.errors?.MatchPassword">Passwords don't match</mat-toolbar>
+        <mat-toolbar *ngIf="message">{{message}}</mat-toolbar>
+        <mat-toolbar *ngIf="error">{{error}}</mat-toolbar>
+    </div>
+</form>
