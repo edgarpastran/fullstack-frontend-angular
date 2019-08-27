@@ -7,7 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PersonComponent } from './pages/person/person.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { PersonEditionComponent } from './pages/person/person-edition/person-edition.component';
 import { ProductComponent } from './pages/product/product.component';
 import { ProductDialogComponent } from './pages/product/product-dialog/product-dialog.component';
@@ -21,6 +21,8 @@ import { environment } from 'src/environments/environment';
 import { Not403Component } from './pages/not403/not403.component';
 import { RecoverComponent } from './login/recover/recover.component';
 import { TokenComponent } from './login/recover/token/token.component';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { ServerErrorsInterceptor } from './_shared/server-errors.interceptor';
 
 export function tokenGetter() {
   let token = sessionStorage.getItem(environment.TOKEN_NAME);
@@ -62,7 +64,10 @@ export function tokenGetter() {
       }
     })
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: ServerErrorsInterceptor, multi: true },
+    { provide: LocationStrategy, useClass: HashLocationStrategy }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

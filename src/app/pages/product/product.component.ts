@@ -19,6 +19,8 @@ export class ProductComponent implements OnInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
+  recordsCounter: number;
+
   constructor(
     private productService: ProductService, 
     private dialog: MatDialog, 
@@ -38,14 +40,17 @@ export class ProductComponent implements OnInit {
       });
     });
 
-    this.productService.messageErrorChange.subscribe(data => {
-      this.snackBar.open(data, messages.ERROR_TITLE, {
-        duration: 5000
-      });
-    });
-
+    /*
     this.productService.list().subscribe(data => {
       this.dataSource = new MatTableDataSource(data);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+    });
+    */
+
+    this.productService.listPageable(0, 5).subscribe(data => {
+      this.recordsCounter = data.totalElements;
+      this.dataSource = new MatTableDataSource(data.content);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     });
@@ -69,9 +74,14 @@ export class ProductComponent implements OnInit {
     })).subscribe(data => {
       this.productService.dataChange.next(data);
       this.productService.messageInfoChange.next(messages.DATA_DELETED);
-    }, 
-    error => {
-      this.productService.messageErrorChange.next(error.error.message);        
+    });
+  }
+
+  showMore(e: any) {
+    this.productService.listPageable(e.pageIndex, e.pageSize).subscribe(data => {
+      this.recordsCounter = data.totalElements;
+      this.dataSource = new MatTableDataSource(data.content);
+      this.dataSource.sort = this.sort;
     });
   }
 }

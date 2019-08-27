@@ -40,12 +40,6 @@ export class PersonComponent implements OnInit {
       });
     });
 
-    this.personService.messageErrorChange.subscribe(data => {
-      this.snackBar.open(data, messages.ERROR_TITLE, {
-        duration: 5000
-      });
-    });
-    
     /*
     this.personService.list().subscribe(data => {
       this.dataSource = new MatTableDataSource(data);
@@ -72,9 +66,6 @@ export class PersonComponent implements OnInit {
     })).subscribe(data => {
       this.personService.dataChange.next(data);
       this.personService.messageInfoChange.next(messages.DATA_DELETED);
-    }, 
-    error => {      
-      this.personService.messageErrorChange.next(error.error.message);        
     });
   }
 

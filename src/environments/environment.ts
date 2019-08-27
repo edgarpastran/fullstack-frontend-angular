@@ -7,7 +7,8 @@ export const environment = {
   HOST: 'http://localhost:8080',
   TOKEN_AUTH_USERNAME: 'edpas-backend',
   TOKEN_AUTH_PASSWORD: 'edpas-backend-codex',
-  TOKEN_NAME: 'access_token'
+  TOKEN_NAME: 'access_token',
+  RETRY_REQUEST: 3
 };
 
 export const messages = {

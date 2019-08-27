@@ -33,28 +33,14 @@ export class ProductDialogComponent implements OnInit {
   }
 
   process() {
-    if (this.product != null && this.product.idProduct > 0) {
-      this.productService.update(this.product).pipe(switchMap(() => {
-        return this.productService.list();
-      })).subscribe(data => {
-        this.productService.dataChange.next(data);
-        this.productService.messageInfoChange.next(messages.DATA_UPDATED);
-      }, 
-      error => {
-        this.productService.messageErrorChange.next(error.error.message+' - '+error.error.details);
-      });
-    } 
-    else {
-      this.productService.update(this.product).pipe(switchMap(() => {
-        return this.productService.list();
-      })).subscribe(data => {
-        this.productService.dataChange.next(data);
-        this.productService.messageInfoChange.next(messages.DATA_REGISTERED);
-      }, 
-      error => {
-        this.productService.messageErrorChange.next(error.error.message+' - '+error.error.details);        
-      });
-    }
+    let message = (this.product != null && this.product.idProduct > 0)?messages.DATA_UPDATED:messages.DATA_REGISTERED;
+    this.productService.update(this.product).pipe(switchMap(() => {
+      return this.productService.list();
+    })).subscribe(data => {
+      this.productService.dataChange.next(data);
+      this.productService.messageInfoChange.next(message);
+    });
+
     this.dialogRef.close();
   }
 }

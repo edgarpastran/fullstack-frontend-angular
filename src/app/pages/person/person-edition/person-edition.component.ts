@@ -69,9 +69,6 @@ export class PersonEditionComponent implements OnInit {
       })).subscribe(data => {
         this.personService.dataChange.next(data);
         this.personService.messageInfoChange.next(messages.DATA_UPDATED);
-      }, 
-      error => {        
-        this.personService.messageErrorChange.next(error.error.message+' - '+error.error.details);
       });
     }
     else {
@@ -80,9 +77,6 @@ export class PersonEditionComponent implements OnInit {
       })).subscribe(data => {
         this.personService.dataChange.next(data);
         this.personService.messageInfoChange.next(messages.DATA_REGISTERED);
-      }, 
-      error => {
-        this.personService.messageErrorChange.next(error.error.message+' - '+error.error.details);
       });
     }
 

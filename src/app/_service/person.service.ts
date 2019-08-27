@@ -12,7 +12,6 @@ export class PersonService {
 
   dataChange = new Subject<Person[]>();
   messageInfoChange = new Subject<string>();
-  messageErrorChange = new Subject<string>();
   url: string = `${environment.HOST}/persons`; 
 
   constructor(private http: HttpClient) { }
