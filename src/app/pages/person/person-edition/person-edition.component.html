@@ -20,22 +20,31 @@
     </div>
     
     <mat-form-field>
-        <input matInput placeholder="First Name" required formControlName="firstName">
+        <div *ngIf="f.firstName.errors?.minlength" class="not-valid">Must have more than 3 charcaters</div>
+        <div *ngIf="f.firstName.errors?.maxlength" class="not-valid">Can't have more than 50 charcaters</div>
+        <input matInput placeholder="First Name" required minlength="3" maxlength="50" formControlName="firstName">
     </mat-form-field>
     
     <mat-form-field>
-        <input matInput placeholder="Last Name" required formControlName="lastName">
+        <div *ngIf="f.lastName.errors?.minlength" class="not-valid">Must have more than 3 charcaters</div>
+        <div *ngIf="f.lastName.errors?.maxlength" class="not-valid">Can't have more than 50 charcaters</div>
+        <input matInput placeholder="Last Name" required minlength="3" maxlength="50" formControlName="lastName">
     </mat-form-field>
     
     <mat-form-field>
-        <input matInput placeholder="Driver License" required formControlName="driverLicense" max="8" maxlength="8" type="number">
+        <div *ngIf="f.driverLicense.errors?.minlength" class="not-valid">Must have 8 characters</div>
+        <div *ngIf="f.driverLicense.errors?.maxlength" class="not-valid">Must have 8 characters</div>
+        <input matInput placeholder="Driver License" (keypress)="onlyDigts($event)" required minlength="8" maxlength="8" formControlName="driverLicense">
     </mat-form-field>
     
     <mat-form-field>
-        <input matInput placeholder="Telephone" required formControlName="telephone" max="10" maxlength="10" type="number">
+        <div *ngIf="f.telephone.errors?.minlength" class="not-valid">Must have 10 characters</div>
+        <div *ngIf="f.telephone.errors?.maxlength" class="not-valid">Must have 10 characters</div>
+        <input matInput placeholder="Telephone" (keypress)="onlyDigts($event)" required minlength="10" maxlength="10" formControlName="telephone">
     </mat-form-field>
     
     <mat-form-field>
+            <div *ngIf="f.email.errors?.email" class="not-valid">Not valid</div>
         <input matInput placeholder="Email" required formControlName="email">
     </mat-form-field>        
 </form>

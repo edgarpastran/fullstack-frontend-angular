@@ -14,3 +14,7 @@
 .spacer {
     flex: 1 1 auto;
 }
+
+.not-valid {
+    color: red;
+}

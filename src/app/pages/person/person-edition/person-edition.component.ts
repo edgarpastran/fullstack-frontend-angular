@@ -1,6 +1,6 @@
 import { PersonService } from './../../../_service/person.service';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, RouterModule, Router } from '@angular/router';
 import { Person } from 'src/app/_model/person';
 import { messages } from 'src/environments/environment';
@@ -25,17 +25,21 @@ export class PersonEditionComponent implements OnInit {
   ngOnInit() {
     this.form = new FormGroup({
       'idPerson': new FormControl(0),
-      'firstName': new FormControl(''),
-      'lastName': new FormControl(''),
-      'driverLicense': new FormControl(''),
-      'telephone': new FormControl(''),
-      'email': new FormControl('')
+      'firstName': new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]),
+      'lastName': new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]),
+      'driverLicense': new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(8)]),
+      'telephone': new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]),
+      'email': new FormControl('', [Validators.required, Validators.email])
     });
 
     this.route.params.subscribe((params: Params) => {
       this.currentId = params['id'];
       this.initForm();
     });
+  }
+
+  get f() {
+    return this.form.controls;
   }
 
   initForm() {
@@ -55,6 +59,10 @@ export class PersonEditionComponent implements OnInit {
   }
 
   process() {
+    if (this.form.invalid) {
+      return;
+    }
+
     let person = new Person();
     person.idPerson = this.form.value['idPerson'];
     person.firstName = this.form.value['firstName'];
@@ -83,4 +91,10 @@ export class PersonEditionComponent implements OnInit {
     this.router.navigate(['person']);
   }
 
+  onlyDigts(e: any) {
+    if (e.heyCode < 48 || e.keyCode > 57) {
+      e.preventDefault();
+      console.log('NV');
+    }
+  }
 }
